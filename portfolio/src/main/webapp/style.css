@@ -4,6 +4,10 @@
   width: 650px;
 }
 
+h1{
+    text-align: center;
+}
+
 #quote-container {
   margin-top: 20px;
 }
@@ -13,4 +17,16 @@ img {
   margin: 0 auto;
   max-height: 300px;
   max-width: 300px;
+}
+
+.img_thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.img_thumbnails img {
+  margin: 7px;
+  max-height: 250px;
+  max-width: 250px;
 }
