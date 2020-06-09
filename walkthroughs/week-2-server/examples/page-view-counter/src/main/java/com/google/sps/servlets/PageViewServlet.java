@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** Servlet that returns HTML that contains the page view count. */
-@WebServlet("/page-views")
+@WebServlet("/counter.html")
 public class PageViewServlet extends HttpServlet {
 
   private int pageViews = 0;
@@ -31,7 +31,13 @@ public class PageViewServlet extends HttpServlet {
     pageViews++;
 
     response.setContentType("text/html;");
-    response.getWriter().println("<h1>Page Views</h1>");
-    response.getWriter().println("<p>This page has been viewed " + pageViews + " times.</p>");
+    if (pageViews % 2 == 0) {
+        response.getWriter().println("<h1>Even Page Views</h1>");
+        response.getWriter().println("<p>This page has been viewed " + pageViews + " times.</p>");
+    } else {
+        response.getWriter().println("<h1>Odd Page View</h1>");
+    response.getWriter().println("<p>This only shows that you've been here " + pageViews + " times. I don't know why you keep visiting.</p>");
+    }
+    
   }
 }
