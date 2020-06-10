@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body id="page">
+  <body id="page" onload="getData()">
     <div id="content">
       <h1>Tomi Olusina's Portfolio</h1>
       <img src="/images/cover_pic.JPG">
@@ -19,10 +19,10 @@
           this past February. <a href="animals.html">Here</a> are some pictures from some random 
           animal experiences over the past year.
       </p>
-      <a href="/data" class="servlets">Page for comment data</a>
       <p>Click below for random quotes from TV shows I enjoy!</p>
       <button onclick="addRandomQuote()">Quotes</button>
       <div id="quote-container"></div>
+      <a href="/data" class="servlets" id="data-blast"></a>
     </div>
   </body>
 </html>
