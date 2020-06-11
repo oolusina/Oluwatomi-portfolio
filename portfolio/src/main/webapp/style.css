@@ -1,4 +1,12 @@
-#page {
+#index {
+    background-color: rgb(182, 182, 182);
+}
+
+#pro {
+    background-color: rgb(0, 0, 0);
+}
+
+#personal {
   background-color: rgb(245, 130, 22);
 }
 
@@ -9,10 +17,12 @@
   color: black;
 }
 
-/*  Something to figure out
-.servlets {
-  background-color: coral;
-}   */
+#content-pro {
+  margin-left: auto;
+  margin-right: auto;
+  width: 700px;
+  color: whitesmoke;
+}
 
 h1 {
   text-align: center;
