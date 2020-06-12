@@ -25,17 +25,20 @@ import java.util.*;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  ArrayList<String> comments = new ArrayList<String>();
+  ArrayList<String> comments = new ArrayList<String>() {
+      {
+        add("This is just to practice JSON conversion");
+        add("This would be the second message");
+        add("It is ok that these are hard-coded");
+        add("An extra would not hurt");
+      }
+  };
   
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     //response.setContentType("text/html;");
     //response.getWriter().println("<h1>A work in progress...</h1>");
 
-    comments.add("This is just to practice JSON conversion");
-    comments.add("This would be the second message");
-    comments.add("It is ok that these are hard-coded");
-    comments.add("An extra would not hurt");
     //Responding with json-converted ArrayList
     String json = convertToJson(comments);
     response.setContentType("application/json;");
@@ -44,17 +47,10 @@ public class DataServlet extends HttpServlet {
 
   private String convertToJson(ArrayList comments) {
     String json = "{";
-    json += "\"message1\": ";
-    json += "\"" + comments.get(0) + "\"";
-    json += ", ";
-    json += "\"message2\": ";
-    json += "\"" + comments.get(1) + "\"";
-    json += ", ";
-    json += "\"message3\": ";
-    json += "\"" + comments.get(2) + "\"";
-    json += ", ";
-    json += "\"message4\": ";
-    json += "\"" + comments.get(3) + "\"";
+    for (int c = 0; c < comments.size(); c++) {
+        json += "\"message" + (c+1) + "\": \"" + comments.get(c) + "\"";
+        if (c != comments.size() -1) json += ", ";
+    }
     json += "}";
     return json;
   }
