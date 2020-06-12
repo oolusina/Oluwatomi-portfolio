@@ -38,14 +38,9 @@ function addRandomQuote() {
 async function getData() {
   fetch('/data').then(response => response.json()).then((messages) => {
     const dataListElement = document.getElementById('data-blast');
-    dataListElement.appendChild(
-        createListElement('' + messages.comment1));
-    dataListElement.appendChild(
-        createListElement('' + messages.comment2));
-    dataListElement.appendChild(
-        createListElement('' + messages.comment3));
-    dataListElement.appendChild(
-        createListElement('' + messages.comment4));
+    for (var index in messages) {
+        dataListElement.appendChild(createListElement('' + messages[index]));
+    }
   });
 }
 
