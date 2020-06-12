@@ -4,13 +4,25 @@
     <meta charset="UTF-8">
     <title>Tomi's Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
   </head>
-  <body id="index">
+  <body id="index" onload="getData()">
     <div id="content">
       <h1>Tomi Olusina's Portfolio</h1>
       <h2>Below are 2 sides of Tomi. Choose a path!!</h2>
       <h3><a href="professional.html">Professional Tomi</a></h3>
       <h3><a href="personal.html">Personal Tomi</a></h3>
+
+      <br/><br/><br/>
+
+      <form action="/data" method="POST">
+        <h3>Below you can enter comments on what you want to see on either page</h3>
+        <textarea name="commentary"></textarea>
+        <br/><br/>
+        <input type="submit" />
+    </form>
+    <h3>Comments</h3>
+    <ul id="data-blast"></ul>
     </div>
   </body>
 </html>
