@@ -19,14 +19,43 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+  ArrayList<String> comments = new ArrayList<String>();
+  
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("<h1>A work in progress...</h1>");
+    //response.setContentType("text/html;");
+    //response.getWriter().println("<h1>A work in progress...</h1>");
+
+    comments.add("This is just to practice JSON conversion");
+    comments.add("This would be the second message");
+    comments.add("It is ok that these are hard-coded");
+    comments.add("An extra would not hurt");
+    //Responding with json-converted ArrayList
+    String json = convertToJson(comments);
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+  }
+
+  private String convertToJson(ArrayList comments) {
+    String json = "{";
+    json += "\"message1\": ";
+    json += "\"" + comments.get(0) + "\"";
+    json += ", ";
+    json += "\"message2\": ";
+    json += "\"" + comments.get(1) + "\"";
+    json += ", ";
+    json += "\"message3\": ";
+    json += "\"" + comments.get(2) + "\"";
+    json += ", ";
+    json += "\"message4\": ";
+    json += "\"" + comments.get(3) + "\"";
+    json += "}";
+    return json;
   }
 }
