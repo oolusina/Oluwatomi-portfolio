@@ -39,7 +39,7 @@ async function getData() {
   fetch('/data').then(response => response.json()).then((messages) => {
     const dataListElement = document.getElementById('data-blast');
     for (var index in messages) {
-        dataListElement.appendChild(createListElement('' + messages[index]));
+        dataListElement.appendChild(createListElement(messages[index]));
     }
   });
 }

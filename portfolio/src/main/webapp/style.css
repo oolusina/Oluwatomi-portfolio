@@ -9,6 +9,10 @@ img {
   max-width: 300px;
 }
 
+li {
+  word-wrap: break-word;
+}
+
 #index {
   background-color: rgb(182, 182, 182);
 }

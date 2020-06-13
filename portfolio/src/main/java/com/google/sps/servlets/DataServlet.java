@@ -44,7 +44,7 @@ public class DataServlet extends HttpServlet {
     String newComment = request.getParameter("commentary").trim();
     if (newComment.isEmpty()) {
       response.setContentType("text/html");
-      response.getWriter().println("Please enter a legitimate comment.");
+      response.getWriter().println("Please enter a legitimate comment!");
       return;
     }
     comments.add(0, newComment);
