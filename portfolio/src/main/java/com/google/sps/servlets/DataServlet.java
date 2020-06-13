@@ -25,14 +25,7 @@ import java.util.*;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  ArrayList<String> comments = new ArrayList<String>() {
-      {
-        add("This is just to practice JSON conversion");
-        add("This would be the second message");
-        add("It is ok that these are hard-coded");
-        add("An extra would not hurt");
-      }
-  };
+  ArrayList<String> comments = new ArrayList<String>() {};
   
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -45,10 +38,25 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println(json);
   }
 
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Input
+    String newComment = request.getParameter("commentary").trim();
+    if (newComment.isEmpty()) {
+      response.setContentType("text/html");
+      response.getWriter().println("Please enter a legitimate comment!");
+      return;
+    }
+    comments.add(0, newComment);
+
+    // Redirect back to the HTML page
+    response.sendRedirect("/index.html");
+  }
+
   private String convertToJson(ArrayList comments) {
     String json = "{";
     for (int c = 0; c < comments.size(); c++) {
-        json += "\"message" + (c+1) + "\": \"" + comments.get(c) + "\"";
+        json += "\"comment" + (c+1) + "\": \"" + comments.get(c) + "\"";
         if (c != comments.size() -1) json += ", ";
     }
     json += "}";
