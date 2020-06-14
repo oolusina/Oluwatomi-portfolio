@@ -20,6 +20,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -47,7 +50,16 @@ public class DataServlet extends HttpServlet {
       response.getWriter().println("Please enter a legitimate comment!");
       return;
     }
-    comments.add(0, newComment);
+    long timestamp = System.currentTimeMillis();
+
+    //comments.add(0, newComment);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("content", newComment);
+    commentEntity.setProperty("timestamp", timestamp);
+
+    datastore.put(commentEntity);
 
     // Redirect back to the HTML page
     response.sendRedirect("/index.html");
