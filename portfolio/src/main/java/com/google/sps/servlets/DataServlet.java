@@ -32,10 +32,11 @@ import com.google.appengine.api.datastore.PreparedQuery;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   
+  DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    //Datastore initialization and query to datastore to retrieve comments
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    //Query to datastore to retrieve comments
     PreparedQuery results = datastore.prepare(
         new Query("Comment").addSort("timestamp", SortDirection.DESCENDING)
     );
@@ -63,8 +64,6 @@ public class DataServlet extends HttpServlet {
     long timestamp = System.currentTimeMillis();
 
     //comments.add(0, newComment);
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("content", newComment);
     commentEntity.setProperty("timestamp", timestamp);
