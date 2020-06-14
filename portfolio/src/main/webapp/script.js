@@ -12,9 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random quote to the page.
- */
+async function getData() {
+  fetch('/data').then(response => response.json()).then((messages) => {
+    const dataListElement = document.getElementById('data-blast');
+    for (var index in messages) {
+        dataListElement.appendChild(createListElement(messages[index]));
+    }
+  });
+}
+
 function addRandomQuote() {
   const quotes =
       ['Poor people don’t have time for investments because poor people are too busy trying not to be poor. - Earn (Atlanta)', 
@@ -27,21 +33,12 @@ function addRandomQuote() {
       'Give up? Give up?! The day may come when we’ll give up on fruitless searches after a mere 11 minutes, but that day is NOT today! The day may come when our favorite reptile may be lost from our memories and his enduring love of mushrooms forgotten, but that day is not today! Today we search! We will search for him in the streets, we will search for him in the trenches, we will search for him in the alleys and the mini-malls and the cul-de-sacs of this fair land. We will search for him in the multi-level car parks and municipal recreation facilities. And we few, we happy few, we small band of brothers - and girl from across the street. We shall not cease ’til he is found! - Ferb (Phineas and Ferb)', 
       'I’m just the keeper of secrets. Like the Vatican. - Jamal (On My Block)'];
 
-  // Pick a random quote.
+  // Picks random quote
   const quote = quotes[Math.floor(Math.random() * quotes.length)];
 
-  // Add it to the page.
+  // Adds to page
   const quoteContainer = document.getElementById('quote-container');
   quoteContainer.innerText = quote;
-}
-
-async function getData() {
-  fetch('/data').then(response => response.json()).then((messages) => {
-    const dataListElement = document.getElementById('data-blast');
-    for (var index in messages) {
-        dataListElement.appendChild(createListElement(messages[index]));
-    }
-  });
 }
 
 function createListElement(text) {

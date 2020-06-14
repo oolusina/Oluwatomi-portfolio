@@ -20,22 +20,35 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.PreparedQuery;
+
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-
-  ArrayList<String> comments = new ArrayList<String>() {};
   
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    //response.setContentType("text/html;");
-    //response.getWriter().println("<h1>A work in progress...</h1>");
+    //Datastore initialization and query to datastore to retrieve comments
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(
+        new Query("Comment").addSort("timestamp", SortDirection.DESCENDING)
+    );
 
-    //Responding with json-converted ArrayList
-    String json = convertToJson(comments);
+    ArrayList<String> comments = new ArrayList<String>();
+    for (Entity entity : results.asIterable()) {
+      String content = (String) entity.getProperty("content");
+      if (comments.size() < 8) comments.add(content);
+    }
+
+    //Responding with json-converted comments ArrayList
     response.setContentType("application/json;");
-    response.getWriter().println(json);
+    response.getWriter().println(convertToJson(comments));
   }
 
   @Override
@@ -47,7 +60,16 @@ public class DataServlet extends HttpServlet {
       response.getWriter().println("Please enter a legitimate comment!");
       return;
     }
-    comments.add(0, newComment);
+    long timestamp = System.currentTimeMillis();
+
+    //comments.add(0, newComment);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("content", newComment);
+    commentEntity.setProperty("timestamp", timestamp);
+
+    datastore.put(commentEntity);
 
     // Redirect back to the HTML page
     response.sendRedirect("/index.html");
