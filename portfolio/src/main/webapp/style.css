@@ -50,7 +50,7 @@ li {
 }
 
 .img_thumbnails img {
-  margin: 7px;
+  margin: 5px;
   max-height: 250px;
-  max-width: 250px;
+  max-width: 300px;
 }
