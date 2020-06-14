@@ -43,7 +43,7 @@ public class DataServlet extends HttpServlet {
     ArrayList<String> comments = new ArrayList<String>();
     for (Entity entity : results.asIterable()) {
       String content = (String) entity.getProperty("content");
-      comments.add(content);
+      if (comments.size() < 8) comments.add(content);
     }
 
     //Responding with json-converted comments ArrayList
