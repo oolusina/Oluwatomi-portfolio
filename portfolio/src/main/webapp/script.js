@@ -12,6 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+function createMap() {
+  const map = new google.maps.Map(
+      document.getElementById('map'),
+      {center: {lat: 9.082, lng: 8.675}, zoom: 5});
+}
+
 async function getData() {
   fetch('/data').then(response => response.json()).then((messages) => {
     const dataListElement = document.getElementById('data-blast');

@@ -5,8 +5,9 @@
     <title>Personal Tomi</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjxZ7xnK3qIoMpPgO9litbYMUZf18gIgw"></script>
   </head>
-  <body id="personal">
+  <body id="personal" onload="createMap()">
     <div id="content">
       <h1>Welcome to the fun side of Tomi!</h1>
       <img src="/images/personal.JPG">
@@ -20,6 +21,7 @@
           <a href="animals.html">Here</a> are some pictures from some random animal 
           experiences over the past year.
       </p>
+      <div id="map"></div>
       <p>Click below for random quotes from TV shows I enjoy!</p>
       <button onclick="addRandomQuote()">Quotes</button>
       <div id="quote-container"></div>
