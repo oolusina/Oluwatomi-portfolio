@@ -13,9 +13,21 @@
 // limitations under the License.
 
 function createMap() {
+  var nigeria = {lat: 9.082, lng: 8.675};
+  var ibadan = {lat: 7.377, lng: 3.947};
+
   const map = new google.maps.Map(
-      document.getElementById('map'),
-      {center: {lat: 9.082, lng: 8.675}, zoom: 5});
+      document.getElementById('map'), 
+      {center: nigeria, zoom: 5}
+  );
+
+  const cityMarker = new google.maps.Marker(
+      {
+        position: ibadan,
+        map: map,
+        title: 'Ibadan, my parents hometown!'
+      }
+  );
 }
 
 async function getData() {
