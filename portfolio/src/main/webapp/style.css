@@ -32,6 +32,13 @@ li {
   color: black;
 }
 
+#content-info-window {
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  color: green;
+}
+
 #content-pro {
   margin-left: auto;
   margin-right: auto;

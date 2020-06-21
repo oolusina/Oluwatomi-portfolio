@@ -13,20 +13,41 @@
 // limitations under the License.
 
 function createMap() {
-  var nigeria = {lat: 9.082, lng: 8.675};
-  var ibadan = {lat: 7.377, lng: 3.947};
+  const nigeria_lat_long = {lat: 9.082, lng: 8.675};
+  const ibadan_lat_long = {lat: 7.377, lng: 3.947};
+  const u_of_ibadan_lat_long = {lat: 7.444, lng: 3.899};
+  const content = '<div id="content-info-window">'+
+      '<h3>My parents met early on during their time studying physical therapy at the '+
+      '<a href="https://www.ui.edu.ng/">University of Ibadan</a>.</h3>'+
+      '</div>';
 
   const map = new google.maps.Map(
       document.getElementById('map'), 
-      {center: nigeria, zoom: 5}
+      {center: nigeria_lat_long, zoom: 5}
   );
 
   const cityMarker = new google.maps.Marker(
       {
-        position: ibadan,
+        position: ibadan_lat_long,
         map: map,
-        title: 'Ibadan, my parents hometown!'
+        title: 'Ibadan, my parents\' hometown!'
       }
+  );
+
+  const universityMarker = new google.maps.Marker(
+      {
+        position: u_of_ibadan_lat_long,
+        map: map,
+        animation: google.maps.Animation.BOUNCE
+      }
+  );
+
+  const infoWindow = new google.maps.InfoWindow({content: content});
+  universityMarker.addListener('click', 
+    function() { 
+        infoWindow.open(map, universityMarker);
+        universityMarker.setAnimation(google.maps.Animation.DROP);
+    }
   );
 }
 
