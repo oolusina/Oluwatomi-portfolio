@@ -18,17 +18,29 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.TreeSet;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+    //null check and checks if request is longer than a day
     if (request == null || request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
         return Arrays.asList();
-    } else if (events == null || events == (Collection)Collections.emptySet() || 
+    } //null check and checks if there are no events or no attendees in request
+    else if (events == null || events == (Collection)Collections.emptySet() || 
         request.getAttendees() == (Collection)Collections.emptySet()) {
             return Arrays.asList(TimeRange.WHOLE_DAY);
     }
     
+    //TreeSet to maintain all blocked TimeRange's without duplicates
+    TreeSet<TimeRange> blockedTimes = new TreeSet<TimeRange>(TimeRange.ORDER_BY_START);
+    for (Event e: events) {
+        for (String a: request.getAttendees()) {
+            if (e.getAttendees().contains(a)) blockedTimes.add(e.getWhen());
+        }
+    }
+
+
+
     return (Collection) Collections.emptySet();
   }
 }
