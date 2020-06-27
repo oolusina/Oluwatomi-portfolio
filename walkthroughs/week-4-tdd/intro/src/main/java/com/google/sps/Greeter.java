@@ -13,6 +13,7 @@
 // limitations under the License.
 
 package com.google.sps;
+import java.util.*;
 
 /**
  * Utility class for creating greeting messages.
@@ -22,6 +23,11 @@ public class Greeter {
    * Returns a greeting for the given name.
    */
   public String greet(String name) {
-    return "Hello " + name;
+    //clean greeting removes the whitespace and extra characters from the name
+    String cleanGreeting = "Hello ";
+    for (int n = 0; n < name.length(); n++){
+        if (Character.isLetter(name.charAt(n))) cleanGreeting += name.charAt(n);
+    }
+    return cleanGreeting;
   }
 }
